@@ -7,7 +7,7 @@ import Modal from "./Modal";
 import { useRouter } from "next/navigation";
 import { deleteTodo, editTodo } from "@/api";
 import { RiInformationLine } from "react-icons/ri";
-import dotenv from 'dotenv';
+
 
 interface TaskProps {
     task: ITask
@@ -23,8 +23,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
     const [assistanceContent, setAssistanceContent] = useState<string>(""); // State to store fetched assistance content
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    dotenv.config();
-    const OPENROUTER_API_KEY = "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";
+    const OPENROUTER_API_KEY = process.env.NEXT_PUBLIC_OPENROUTER_API_KEY;
 
     // Request Notification Permission
     useEffect(() => {
@@ -38,7 +37,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
         const interval = setInterval(() => {
             const now = Date.now(); // Current timestamp in milliseconds
             const taskDateTime = new Date(task.datetime).getTime(); // Task timestamp in milliseconds
-
+            
             console.log("task.datetime (raw):", task.datetime);
             console.log("task.timestamp:", taskDateTime, "now.timestamp:", now);
 
@@ -97,6 +96,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
         setIsLoading(true); // Start loading
         try {
             const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                cache: 'no-store', 
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
