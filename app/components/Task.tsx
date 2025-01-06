@@ -18,40 +18,40 @@ const Task: React.FC<TaskProps> = ({ task }) => {
     const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
     const [openModalDeleted, setOpenModalDeleted] = useState<boolean>(false);
     const [taskToEdit, setTasktoEdit] = useState<string>(task.text);
-    const [newDateTime, setNewDateTime] = useState<string>(task.datetime); // Add state for new datetime
+    const [newDateTime, setNewDateTime] = useState<string>(task.datetime);
     const [openModalHelp, setOpenModalHelp] = useState<boolean>(false);
-    const [assistanceContent, setAssistanceContent] = useState<string>(""); // State to store fetched assistance content
+    const [assistanceContent, setAssistanceContent] = useState<string>(""); 
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const OPENROUTER_API_KEY = process.env.NEXT_PUBLIC_OPENROUTER_API_KEY;
 
-    // Request Notification Permission
+   
     useEffect(() => {
         if (Notification.permission === "default") {
             Notification.requestPermission();
         }
     }, []);
 
-    // Periodically Check Task Time
+ 
     useEffect(() => {
         const interval = setInterval(() => {
-            const now = Date.now(); // Current timestamp in milliseconds
-            const taskDateTime = new Date(task.datetime).getTime(); // Task timestamp in milliseconds
+            const now = Date.now(); 
+            const taskDateTime = new Date(task.datetime).getTime();
             
             console.log("task.datetime (raw):", task.datetime);
             console.log("task.timestamp:", taskDateTime, "now.timestamp:", now);
 
-            // Check if the task time has passed
+         
             if (taskDateTime <= now) {
                 showNotification(task.text);
-                clearInterval(interval); // Stop checking after triggering
+                clearInterval(interval); 
             }
-        }, 1000); // Check every second for more precise timing
+        }, 1000); 
 
-        return () => clearInterval(interval); // Cleanup on unmount
+        return () => clearInterval(interval); 
     }, [task.datetime, task.text]);
 
-    // Show Notification
+
     const showNotification = (message: string) => {
         if (Notification.permission === "granted") {
             new Notification("Task Due!", {
@@ -64,21 +64,21 @@ const Task: React.FC<TaskProps> = ({ task }) => {
         const date = new Date(datetime);
         return date.toLocaleString('en-US', {
             year: 'numeric',
-            month: 'short', // e.g., "Dec"
+            month: 'short', 
             day: 'numeric',
             hour: 'numeric',
             minute: 'numeric',
-            hour12: true, // 12-hour clock
+            hour12: true, 
         });
     };
 
-    // Handle form submission for editing
+  
     const handleSubmitEditTodo: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
         await editTodo({
             id: task.id,
             text: taskToEdit,
-            datetime: newDateTime, // Send updated datetime
+            datetime: newDateTime, 
         });
         setOpenModalEdit(false);
         router.refresh();
@@ -92,8 +92,8 @@ const Task: React.FC<TaskProps> = ({ task }) => {
 
     const getAssistance = async () => {
         
-        setOpenModalHelp(true); // Open the help modal
-        setIsLoading(true); // Start loading
+        setOpenModalHelp(true); 
+        setIsLoading(true); 
         try {
             const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                 cache: 'no-store', 
@@ -119,14 +119,14 @@ const Task: React.FC<TaskProps> = ({ task }) => {
 
             const data = await response.json();
 
-            // Extract the content from the response
+          
             const assistanceContent = data.choices[0]?.message?.content || '';
-            setAssistanceContent(assistanceContent); // Store the fetched content
+            setAssistanceContent(assistanceContent); 
 
         } catch (error) {
             console.error("Error fetching assistance:", error);
         } finally {
-            setIsLoading(false); // Stop loading
+            setIsLoading(false); 
         }
     };
 
@@ -147,14 +147,14 @@ const Task: React.FC<TaskProps> = ({ task }) => {
                                 placeholder="Type here"
                                 className="input input-bordered w-full ml-2"
                             />
-                            {/* Date-Time Picker for editing */}
+                         
                             <input
                                 type="datetime-local"
-                                value={newDateTime}  // Bind the input to the state
-                                onChange={e => setNewDateTime(e.target.value)}  // Update the state when the user changes the date
+                                value={newDateTime}  
+                                onChange={e => setNewDateTime(e.target.value)}  
                                 className="input input-bordered w-full mt-2"
                             />
-                            {/* Submit Button */}
+                            
                             <button type="submit" className="btn btn-primary w-full mt-4">Submit</button>
                         </div>
                     </form>

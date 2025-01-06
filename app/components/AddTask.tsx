@@ -11,7 +11,7 @@ const AddTask = () => {
   const router = useRouter();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [newTaskValue, setNewTaskValue] = useState<string>('');
-  const [selectedDateTime, setSelectedDateTime] = useState<string>(new Date(new Date().getTime() + 1 * 60000).toISOString().slice(0, 16)); // Default to 1 minute later
+  const [selectedDateTime, setSelectedDateTime] = useState<string>(new Date(new Date().getTime() + 1 * 60000).toISOString().slice(0, 16)); 
 
   useEffect(() => {
     if (modalOpen) {
@@ -26,10 +26,10 @@ const AddTask = () => {
     await addTodo({
         id: uuidv4(),
         text: newTaskValue,
-        datetime: selectedDateTime, // Use the selected datetime
+        datetime: selectedDateTime,
     });
     setNewTaskValue("");
-    setSelectedDateTime(new Date(new Date().getTime() + 1 * 60000).toISOString().slice(0, 16)); // Reset datetime to 1 minute later
+    setSelectedDateTime(new Date(new Date().getTime() + 1 * 60000).toISOString().slice(0, 16)); 
     setModalOpen(false);
     router.refresh();
   }
@@ -50,14 +50,14 @@ const AddTask = () => {
                         placeholder="Type here" 
                         className="input input-bordered w-full ml-2" 
                     />
-                    {/* Date-Time Picker */}
+                 
                     <input
                         type="datetime-local"
                         value={selectedDateTime}
                         onChange={e => setSelectedDateTime(e.target.value)}
                         className="input input-bordered w-full"
                     />
-                    {/* Submit Button */}
+               
                     <button type="submit" className="btn btn-primary w-full text-1xl font-bold">Submit</button>
                 </div>
             </form>
@@ -70,4 +70,3 @@ export default AddTask;
 
 
 
-// datetime: new Date(new Date().getTime() + 1 * 60000).toISOString(), // Current time + 3 minutes

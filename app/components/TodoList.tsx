@@ -10,7 +10,6 @@ const TodoList: React.FC<TodoListProps> = ({ tasks }) => {
   return (
     <div className="overflow-x-auto">
     <table className="table">
-      {/* Head */}
       <thead>
         <tr className="flex w-full">
           <th className="flex-1">TASKS</th>
