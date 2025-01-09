@@ -1,5 +1,6 @@
 import AddTask from "./components/AddTask";
 import TodoList from "./components/TodoList";
+import LoginForm from "./components/LoginForm";
 import { getAllTodos } from "@/api";
 
 export default async function Home() {
@@ -8,11 +9,12 @@ export default async function Home() {
   return (
     
       <main className="max-w-4xl mx-auto mt-4">
-          <div className="text-center my-5 flex flex-col gap-4">
+           <LoginForm/>
+          {/* <div className="text-center my-5 flex flex-col gap-4">
             <h1 className="text-2xl font-bold"> Todo List App</h1>
             <AddTask/>
           </div>
-          <TodoList tasks={tasks}/>
+          <TodoList tasks={tasks}/> */}
       </main>
      
 
