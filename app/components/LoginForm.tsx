@@ -1,8 +1,8 @@
 "use client"
 
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { useRouter } from 'next/navigation'; // Next.js 13 useRouter
-import { FcGoogle } from 'react-icons/fc'; // Google icon with official colors
+import { useRouter } from 'next/navigation'; 
+import { FcGoogle } from 'react-icons/fc'; 
 
 
 interface FormData {
