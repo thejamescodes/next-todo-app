@@ -123,7 +123,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
       <td className="flex-1">{task.text}</td>
       <td className="flex-1">{formatDate(task.datetime)}</td>
       <td className="flex ml-auto gap-5">
-        {/* Edit Task */}
+  
         <FiEdit onClick={() => setOpenModal((prev) => ({ ...prev, edit: true }))} cursor="pointer" size={25} />
         <Modal modalOpen={openModal.edit} setModalOpen={() => setOpenModal((prev) => ({ ...prev, edit: false }))}>
           <form onSubmit={handleEditSubmit} className="flex flex-col gap-4">
@@ -145,7 +145,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
           </form>
         </Modal>
 
-        {/* Delete Task */}
+     
         <FiTrash2 onClick={() => setOpenModal((prev) => ({ ...prev, delete: true }))} cursor="pointer" size={25} />
         <Modal modalOpen={openModal.delete} setModalOpen={() => setOpenModal((prev) => ({ ...prev, delete: false }))}>
           <h3 className="text-lg">Are you sure you want to delete this task?</h3>
@@ -154,7 +154,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
           </div>
         </Modal>
 
-        {/* Get Assistance */}
+   
         <RiInformationLine onClick={fetchAssistance} cursor="pointer" size={27} />
         <Modal modalOpen={openModal.help} setModalOpen={() => setOpenModal((prev) => ({ ...prev, help: false }))}>
           <h3 className="text-lg font-bold">Help: {task.text}</h3>

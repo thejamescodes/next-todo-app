@@ -1,10 +1,10 @@
 import { ITask } from "./types/tasks";
 
 
-const baseUrl = 'https://todo-app-api-2qot.onrender.com'; // prod URL
-//const baseUrl = 'http://localhost:3001'; // dev URL
+const baseUrl = 'https://todo-app-api-2qot.onrender.com'; 
+//const baseUrl = 'http://localhost:3001'; 
 
-// Fetch all todos
+
 export const getAllTodos = async (): Promise<ITask[]> => {
   const res = await fetch(`${baseUrl}/todos`, { cache: 'no-store' });
   if (!res.ok) {
@@ -14,7 +14,7 @@ export const getAllTodos = async (): Promise<ITask[]> => {
   return todos;
 };
 
-// Add a new todo
+
 export const addTodo = async (todo: ITask): Promise<ITask> => {
   const res = await fetch(`${baseUrl}/todos`, {
     method: 'POST',
@@ -35,7 +35,7 @@ export const addTodo = async (todo: ITask): Promise<ITask> => {
   return newTodo;
 };
 
-// Edit an existing todo
+
 export const editTodo = async (todo: ITask): Promise<ITask> => {
   const res = await fetch(`${baseUrl}/todos/${todo.id}`, {
     method: 'PUT',
@@ -56,7 +56,7 @@ export const editTodo = async (todo: ITask): Promise<ITask> => {
   return updatedTodo;
 };
 
-// Delete a todo by ID
+
 export const deleteTodo = async (id: string): Promise<void> => {
   const res = await fetch(`${baseUrl}/todos/${id}`, {
     method: 'DELETE',

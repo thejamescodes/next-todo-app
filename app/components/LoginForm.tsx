@@ -11,7 +11,7 @@ interface FormData {
 }
 
 const LoginForm = () => {
-  const router = useRouter(); // Initialize the useRouter hook
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     email: '',
     password: '',
